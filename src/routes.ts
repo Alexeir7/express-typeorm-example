@@ -1,11 +1,11 @@
-import app from './app'
-import { post as createPost, put as updatePost, remove as deletePost, getOne as getPost, getAll as getPosts } from "./controllers/post";
-import { post as createCategory, put as updateCategory, remove as deleteCategory, getOne as getCategory, getAll as getCategories } from "./controllers/category";
+import app from './app';
+import { getAll as getCategories, getOne as getCategory, post as createCategory, put as updateCategory, remove as deleteCategory } from './controllers/category';
+import { getAll as getPosts, getOne as getPost, post as createPost, put as updatePost, remove as deletePost } from './controllers/post';
 
 app.get('/', (req, res) => {
     res.send({
-        "liu": "Laureate International Universities"
-    })
+        liu: 'Laureate International Universities',
+    });
 });
 
 app.post('/category', createCategory);
@@ -19,4 +19,3 @@ app.get('/post', getPosts);
 app.get('/post/:id', getPost);
 app.put('/post/:id', updatePost);
 app.delete('/post/:id', deletePost);
-

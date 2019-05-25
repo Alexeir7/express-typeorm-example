@@ -1,20 +1,20 @@
-import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
-import {Category} from "./Category";
+import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {Category} from './Category';
 
 @Entity()
 export class Post {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column()
-    title: string;
+    public title: string;
 
-    @Column("text")
-    text: string;
+    @Column('text')
+    public text: string;
 
-    @ManyToMany(type => Category, category => category.posts)
+    @ManyToMany((type) => Category, (category) => category.posts)
     @JoinTable()
-    categories: Category[];
+    public categories: Category[];
 
 }

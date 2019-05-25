@@ -1,7 +1,7 @@
 interface ProjectConfig {
-    PORT: string
+    PORT: string;
 }
 
 export const config: ProjectConfig = {
-    PORT: process.env.PORT || '3000'
-} 
+    PORT: process.env.PORT || '3000',
+};

@@ -1,18 +1,18 @@
-import "reflect-metadata";
-import {createConnection} from "typeorm";
+import 'reflect-metadata';
+import {createConnection} from 'typeorm';
 import app from './app';
 
-import "./routes"
-import { config } from "./config";
+import { config } from './config';
+import './routes';
 
 createConnection({
-    type: "sqlite",
-    database: "test",
+    database: 'test',
     entities: [
-        __dirname + "/entity/*"
+        __dirname + '/entity/*',
     ],
+    logging: false,
     synchronize: true,
-    logging: false
-}).then(connection => {
+    type: 'sqlite',
+}).then((connection) => {
     app.listen(config.PORT, () => console.log('Example app listening on port 3000!'));
-}).catch(error => console.log(error));
+}).catch((error) => console.log(error));

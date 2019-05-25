@@ -1,6 +1,6 @@
-import {Request, Response} from "express";
-import {getManager} from "typeorm";
-import {Category} from "../entity/Category";
+import {Request, Response} from 'express';
+import {getManager} from 'typeorm';
+import {Category} from '../entity/Category';
 
 export async function post(request: Request, response: Response) {
     const categoryRepository = getManager().getRepository(Category);
@@ -14,14 +14,14 @@ export async function post(request: Request, response: Response) {
 
 export async function getAll(request: Request, response: Response) {
     const categoryRepository = getManager().getRepository(Category);
-    const categories = await categoryRepository.find( { relations: ["posts"] });
+    const categories = await categoryRepository.find( { relations: ['posts'] });
 
     response.send(categories);
 }
 
 export async function getOne(request: Request, response: Response) {
     const categoryRepository = getManager().getRepository(Category);
-    const category = await categoryRepository.findOne(request.params.id, { relations: ["posts"] });
+    const category = await categoryRepository.findOne(request.params.id, { relations: ['posts'] });
 
     // if category was not found return 404 to the client
     if (!category) {
