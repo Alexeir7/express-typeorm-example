@@ -1,6 +1,7 @@
 import app from './app';
 import { createCategory, deleteCategory, getCategories, getCategory, updateCategory } from './controllers/category';
 import { createPost, deletePost, getPost, getPosts, updatePost } from './controllers/post';
+import { createUser, getUser, getUsers, deleteUser, updateUser, login } from './controllers/user';
 
 app.get('/', (req, res) => {
     res.send({
@@ -19,3 +20,11 @@ app.get('/post', getPosts);
 app.get('/post/:id', getPost);
 app.put('/post/:id', updatePost);
 app.delete('/post/:id', deletePost);
+
+app.get('/user', getUsers);
+app.get('/user/:id', getUser);
+app.put('/user/:id', updateUser);
+app.delete('/user/:id', deleteUser);
+
+app.post('/signup', createUser);
+app.post('/login', login);

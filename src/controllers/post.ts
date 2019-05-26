@@ -1,7 +1,7 @@
-import {Request, Response} from "express";
-import {getManager} from "typeorm";
-import { Category } from "../entity/Category";
-import {Post} from "../entity/Post";
+import {Request, Response} from 'express';
+import {getManager} from 'typeorm';
+import { Category } from '../entity/Category';
+import {Post} from '../entity/Post';
 
 export async function createPost(request: Request, response: Response) {
     const postRepository = getManager().getRepository(Post);
