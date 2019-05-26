@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 import {getManager} from 'typeorm';
 import {Category} from '../entity/Category';
 
-export async function post(request: Request, response: Response) {
+export async function createCategory(request: Request, response: Response) {
     const categoryRepository = getManager().getRepository(Category);
 
     const newCategory = categoryRepository.create(request.body);
@@ -12,14 +12,14 @@ export async function post(request: Request, response: Response) {
     response.send(newCategory);
 }
 
-export async function getAll(request: Request, response: Response) {
+export async function getCategories(request: Request, response: Response) {
     const categoryRepository = getManager().getRepository(Category);
     const categories = await categoryRepository.find( { relations: ['posts'] });
 
     response.send(categories);
 }
 
-export async function getOne(request: Request, response: Response) {
+export async function getCategory(request: Request, response: Response) {
     const categoryRepository = getManager().getRepository(Category);
     const category = await categoryRepository.findOne(request.params.id, { relations: ['posts'] });
 
@@ -33,7 +33,7 @@ export async function getOne(request: Request, response: Response) {
     response.send(category);
 }
 
-export async function put(request: Request, response: Response) {
+export async function updateCategory(request: Request, response: Response) {
     const categoryRepository = getManager().getRepository(Category);
     const category = await categoryRepository.findOne(request.params.id);
 
@@ -51,7 +51,7 @@ export async function put(request: Request, response: Response) {
     response.send(category);
 }
 
-export async function remove(request: Request, response: Response) {
+export async function deleteCategory(request: Request, response: Response) {
     const categoryRepository = getManager().getRepository(Category);
     const category = await categoryRepository.findOne(request.params.id);
 

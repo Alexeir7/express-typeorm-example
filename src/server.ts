@@ -6,7 +6,7 @@ import { config } from './config';
 import './routes';
 
 createConnection({
-    database: 'test',
+    database: 'test.sqlite',
     entities: [
         __dirname + '/entity/*',
     ],

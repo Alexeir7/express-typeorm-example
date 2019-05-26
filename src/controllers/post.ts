@@ -3,7 +3,7 @@ import {getManager} from "typeorm";
 import { Category } from "../entity/Category";
 import {Post} from "../entity/Post";
 
-export async function post(request: Request, response: Response) {
+export async function createPost(request: Request, response: Response) {
     const postRepository = getManager().getRepository(Post);
     const categoryRepository = getManager().getRepository(Category);
     const categories = await categoryRepository.findByIds(request.body.categories);
@@ -16,14 +16,14 @@ export async function post(request: Request, response: Response) {
     response.send(newPost);
 }
 
-export async function getAll(request: Request, response: Response) {
+export async function getPosts(request: Request, response: Response) {
     const postRepository = getManager().getRepository(Post);
     const posts = await postRepository.find({ relations: ['categories'] });
 
     response.send(posts);
 }
 
-export async function getOne(request: Request, response: Response) {
+export async function getPost(request: Request, response: Response) {
     const postRepository = getManager().getRepository(Post);
     const post = await postRepository.findOne(request.params.id, { relations: ['categories'] });
 
@@ -36,7 +36,7 @@ export async function getOne(request: Request, response: Response) {
     response.send(post);
 }
 
-export async function put(request: Request, response: Response) {
+export async function updatePost(request: Request, response: Response) {
     const postRepository = getManager().getRepository(Post);
     const categoryRepository = getManager().getRepository(Category);
 
@@ -60,7 +60,7 @@ export async function put(request: Request, response: Response) {
     response.send(post);
 }
 
-export async function remove(request: Request, response: Response) {
+export async function deletePost(request: Request, response: Response) {
     const postRepository = getManager().getRepository(Post);
     const post = await postRepository.findOne(request.params.id);
 

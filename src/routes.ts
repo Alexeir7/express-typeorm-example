@@ -1,6 +1,6 @@
 import app from './app';
-import { getAll as getCategories, getOne as getCategory, post as createCategory, put as updateCategory, remove as deleteCategory } from './controllers/category';
-import { getAll as getPosts, getOne as getPost, post as createPost, put as updatePost, remove as deletePost } from './controllers/post';
+import { createCategory, deleteCategory, getCategories, getCategory, updateCategory } from './controllers/category';
+import { createPost, deletePost, getPost, getPosts, updatePost } from './controllers/post';
 
 app.get('/', (req, res) => {
     res.send({
