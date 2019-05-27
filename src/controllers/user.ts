@@ -47,23 +47,20 @@ export async function getUser(request: Request, response: Response) {
     response.send(user);
 }
 
+// still unsure about this one, handling password updates is weird
 export async function updateUser(request: Request, response: Response) {
     const userRepository = getManager().getRepository(User);
 
     const user = await userRepository.findOne(request.params.id);
-    // const categories = await categoryRepository.findByIds(request.body.categories);
-    // request.body.categories = categories;
 
-    // if post was not found return 404 to the client
     if (!user) {
         response.status(404);
         response.end();
         return;
     }
 
-    // post.title = request.body.title || post.title;
-    // post.text = request.body.text || post.text;
-    // post.categories = request.body.categories || post.categories;
+    user.username = request.body.username || user.username;
+    user.role = request.body.categories || user.role;
 
     await userRepository.save(user);
 
@@ -74,7 +71,6 @@ export async function deleteUser(request: Request, response: Response) {
     const userRepository = getManager().getRepository(User);
     const user = await userRepository.findOne(request.params.id);
 
-    // if post was not found return 404 to the client
     if (!user) {
         response.status(404);
         response.end();
@@ -97,7 +93,6 @@ export async function login(request: Request, response: Response) {
 
     const user = await userRepository.findOne({ where: { username } });
 
-    // if post was not found return 404 to the client
     if (!user) {
         response.status(404);
         response.end();
@@ -116,5 +111,4 @@ export async function login(request: Request, response: Response) {
     );
 
     response.send(token);
-
 }

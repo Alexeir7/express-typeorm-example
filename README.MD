@@ -10,7 +10,24 @@ The project is using right now SQLite as its DB engine.
     $ npm install
 ```
 
+## Add Admin User to DB
+```cmd
+    $ npm run migration
+```
+Credentials for admin are:
+username: admin
+password: admin
+
+## Available Roles
+'ADMIN','EDITOR'
+
+Every other roles other than that is considered a VIEWER
+
 ## Run Project
+
+```cmd
+    $ npm run watch
+```
 
 ```cmd
     $ npm run watch
