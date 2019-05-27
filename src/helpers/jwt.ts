@@ -1,17 +1,17 @@
 import { NextFunction, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 
 export const checkJwt = (require: Request, response: Response, next: NextFunction) => {
 
-  const token =  require.headers.auth as string;
+  const token = require.headers.authorization as string;
   let jwtPayload;
 
   try {
-    jwtPayload =  jwt.verify(token,  process.env.SECRET) as any;
+    jwtPayload = jwt.verify(token, process.env.SECRET) as any;
     response.locals.jwtPayload = jwtPayload;
   } catch (error) {
 
-    response.status(401).send();
+    response.status(401).send('invalid token');
     return;
   }
 
