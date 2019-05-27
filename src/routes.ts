@@ -1,7 +1,9 @@
 import app from './app';
 import { createCategory, deleteCategory, getCategories, getCategory, updateCategory } from './controllers/category';
 import { createPost, deletePost, getPost, getPosts, updatePost } from './controllers/post';
-import { createUser, getUser, getUsers, deleteUser, updateUser, login } from './controllers/user';
+import { createUser, deleteUser, getUser, getUsers, login, updateUser } from './controllers/user';
+import { checkRole } from './helpers/checkRole';
+import { checkJwt } from './helpers/jwt';
 
 app.get('/', (req, res) => {
     res.send({

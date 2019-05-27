@@ -7,11 +7,15 @@ import { config } from './config';
 import './routes';
 
 createConnection({
+    cli: {
+        migrationsDir: 'migration',
+    },
     database: 'test.sqlite',
     entities: [
         __dirname + '/entity/*',
     ],
     logging: false,
+    migrations: ['migration/*.js'],
     synchronize: true,
     type: 'sqlite',
 }).then((connection) => {

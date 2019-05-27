@@ -6,23 +6,38 @@ import {User} from '../entity/User';
 export async function createUser(request: Request, response: Response) {
     const userRepository = getManager().getRepository(User);
 
-    const newUser = userRepository.create(request.body);
+    const { username, password, role } = request.body;
 
-    await userRepository.save(newUser);
+    const user = new User();
 
-    response.send(newUser);
+    user.username = username;
+    user.password = password;
+    user.role = role;
+
+    user.hashPassword();
+
+    try {
+        await userRepository.save(user);
+      } catch (e) {
+        response.status(409).send('username already in use');
+        return;
+      }
+
+    response.status(201).send('User created');
 }
 
 export async function getUsers(request: Request, response: Response) {
     const userRepository = getManager().getRepository(User);
-    const users = await userRepository.find();
+    const users = await userRepository.find({
+        select: ['id', 'username', 'role'],
+      });
 
     response.send(users);
 }
 
 export async function getUser(request: Request, response: Response) {
     const userRepository = getManager().getRepository(User);
-    const user = await userRepository.findOne(request.params.id);
+    const user = await userRepository.findOne(request.params.id, {select: ['id', 'username', 'role']});
 
     if (!user) {
         response.status(404);
@@ -68,12 +83,19 @@ export async function deleteUser(request: Request, response: Response) {
 
     await userRepository.remove(user);
 
-    response.send(user);
+    response.status(204).send();
 }
 
 export async function login(request: Request, response: Response) {
     const userRepository = getManager().getRepository(User);
-    const user = await userRepository.findOne({ where: {username: request.body.username}});
+
+    const { username, password } = request.body;
+
+    if (!(username && password)) {
+      response.status(400).send();
+    }
+
+    const user = await userRepository.findOne({ where: { username } });
 
     // if post was not found return 404 to the client
     if (!user) {
@@ -82,15 +104,17 @@ export async function login(request: Request, response: Response) {
         return;
     }
 
-    console.log(request.body.password);
-
-    const isValid =  await user.comparePassword(request.body.password);
-
-    if (isValid) {
-        console.log(request.body.password);
-        response.send(isValid);
+    if (!user.IsValid(password)) {
+        response.status(401).send();
+        return;
     }
 
-    response.send(request.body.password);
+    const token = jwt.sign(
+        { userId: user.id, username: user.username },
+        process.env.SECRET,
+        { expiresIn: '30d' },
+    );
+
+    response.send(token);
 
 }

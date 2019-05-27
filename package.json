@@ -8,7 +8,8 @@
     "start": "npm run serve",
     "serve": "node dist/server.js",
     "watch": "nodemon -e ts -w ./src -x npm run dev",
-    "dev": "ts-node ./src/server.ts"
+    "dev": "ts-node ./src/server.ts",
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run"
   },
   "keywords": [],
   "author": "",
