@@ -15,7 +15,6 @@ createConnection({
         __dirname + '/entity/*',
     ],
     logging: false,
-    migrations: ['migration/*.js'],
     synchronize: true,
     type: 'sqlite',
 }).then((connection) => {

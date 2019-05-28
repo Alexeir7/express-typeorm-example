@@ -10,13 +10,17 @@ The project is using right now SQLite as its DB engine.
     $ npm install
 ```
 
-## Add Admin User to DB
-```cmd
-    $ npm run migration
+## Add Admin User to DB via postman
+
+url: http://localhost:3000/signup
+
 ```
-Credentials for admin are:
-username: admin
-password: admin
+    {
+    "username": "admin",
+    "password": "admin",
+    "role": "ADMIN"
+    }
+```
 
 ## Available Roles
 'ADMIN','EDITOR'
