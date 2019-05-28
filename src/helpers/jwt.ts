@@ -3,8 +3,12 @@ import * as jwt from 'jsonwebtoken';
 
 export const checkJwt = (require: Request, response: Response, next: NextFunction) => {
 
-  const token = require.headers.authorization as string;
+  let token = require.headers.authorization as string;
   let jwtPayload;
+
+  if (token.startsWith('Bearer ')) {
+    token = token.slice(7, token.length).trimLeft();
+  }
 
   try {
     jwtPayload = jwt.verify(token, process.env.SECRET) as any;
