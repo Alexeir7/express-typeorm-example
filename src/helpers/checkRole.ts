@@ -12,10 +12,9 @@ export const checkRole = (roles: string[]) => {
     try {
       user = await userRepository.findOneOrFail(id);
     } catch (id) {
-      reponse.status(401).send('Unathorized');
+      reponse.status(401).send();
     }
 
-    // Check if array of authorized roles includes the user's role
-    if (roles.indexOf(user.role) > -1) { next(); } else { reponse.status(401).send(); }
+    if (roles.indexOf(user.role) > -1) { next(); } else { reponse.status(401).send('Unathorized'); }
   };
 };

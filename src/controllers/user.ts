@@ -105,10 +105,10 @@ export async function login(request: Request, response: Response) {
     }
 
     const token = jwt.sign(
-        { userId: user.id, username: user.username },
+        { userId: user.id, username: user.username, role: user.role },
         process.env.SECRET,
         { expiresIn: '30d' },
     );
 
-    response.send(token);
+    response.json({id: user.id, username: user.username, role: user.role, token});
 }
