@@ -60,7 +60,7 @@ export async function updateUser(request: Request, response: Response) {
     }
 
     user.username = request.body.username || user.username;
-    user.role = request.body.categories || user.role;
+    user.role = request.body.role || user.role;
 
     await userRepository.save(user);
 
